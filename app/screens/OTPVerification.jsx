@@ -1,21 +1,13 @@
-import { useState, useRef, useEffect } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Modal,
-  Image,
-} from "react-native";
-import { useRouter, useLocalSearchParams } from "expo-router";
-import { AntDesign } from "@expo/vector-icons";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useState, useRef, useEffect } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Modal, Image } from 'react-native';
+import { useRouter, useLocalSearchParams } from 'expo-router';
+import { AntDesign } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const OTPVerification = () => {
   const router = useRouter();
   const { phone } = useLocalSearchParams();
-  const [otp, setOtp] = useState(["", "", "", ""]);
+  const [otp, setOtp] = useState(['', '', '', '']);
   const inputRefs = [useRef(), useRef(), useRef(), useRef()];
   const [timeLeft, setTimeLeft] = useState(60);
   const [showResend, setShowResend] = useState(false);
@@ -39,13 +31,13 @@ const OTPVerification = () => {
       if (index < 3) {
         inputRefs[index + 1].current.focus();
       }
-    } else if (value === "") {
-      newOtp[index] = "";
+    } else if (value === '') {
+      newOtp[index] = '';
       setOtp(newOtp);
     }
   };
 
-  const isOtpComplete = otp.every((digit) => digit !== "");
+  const isOtpComplete = otp.every((digit) => digit !== '');
 
   const handleResend = () => {
     setModalVisible(true);
@@ -70,8 +62,7 @@ const OTPVerification = () => {
 
         {/* Instructions */}
         <Text style={styles.subtitle}>
-          Enter the 4-digit code sent to your phone number to{" "}
-          <Text style={styles.bold}>{phone}</Text>{" "}
+          Enter the 4-digit code sent to your phone number to <Text style={styles.bold}>{phone}</Text>{' '}
           <Text>verify your account.</Text>
         </Text>
 
@@ -80,7 +71,7 @@ const OTPVerification = () => {
           {otp.map((digit, index) => (
             <TextInput
               key={index}
-              style={[styles.otpBox, digit !== "" && styles.filledBox]}
+              style={[styles.otpBox, digit !== '' && styles.filledBox]}
               keyboardType="numeric"
               maxLength={1}
               value={digit}
@@ -94,8 +85,7 @@ const OTPVerification = () => {
         {showResend ? (
           <TouchableOpacity onPress={handleResend}>
             <Text style={styles.resend}>
-              Didn’t get the code?{" "}
-              <Text style={styles.resendAgain}>Resend again</Text>
+              Didn’t get the code? <Text style={styles.resendAgain}>Resend again</Text>
             </Text>
           </TouchableOpacity>
         ) : (
@@ -104,10 +94,8 @@ const OTPVerification = () => {
 
         {/* Continue Button */}
         <TouchableOpacity
-          style={[
-            styles.continueButton,
-            !isOtpComplete && styles.disabledButton,
-          ]}
+          style={[styles.continueButton, !isOtpComplete && styles.disabledButton]}
+          onPress={() => router.replace('/(tabs)/Home')}
           disabled={!isOtpComplete}
         >
           <Text style={styles.buttonText}>Continue</Text>
@@ -118,10 +106,7 @@ const OTPVerification = () => {
       <Modal visible={modalVisible} transparent={true} animationType="fade">
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Image
-              source={require("../../assets/images/checkmark.webp")}
-              style={styles.checkIcon}
-            />
+            <Image source={require('../../assets/images/checkmark.webp')} style={styles.checkIcon} />
             <Text style={styles.modalText}>Code has been resent to</Text>
             <Text style={styles.modalPhone}>{phone}</Text>
           </View>
@@ -134,97 +119,97 @@ const OTPVerification = () => {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
   },
   container: {
     flex: 1,
     padding: 20,
   },
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginBottom: 30,
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: "600",
-    color: "#333",
+    fontWeight: '600',
+    color: '#333',
   },
   subtitle: {
     fontSize: 14,
-    color: "#434343",
+    color: '#434343',
     marginBottom: 20,
     marginHorizontal: 10,
   },
   bold: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   otpContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginBottom: 15,
   },
   otpBox: {
     width: 76,
     height: 76,
     borderWidth: 1,
-    borderColor: "#CCC",
-    textAlign: "center",
+    borderColor: '#CCC',
+    textAlign: 'center',
     fontSize: 20,
-    fontWeight: "600",
+    fontWeight: '600',
     borderRadius: 8,
     marginHorizontal: 8,
-    color: "#000",
+    color: '#000',
   },
   filledBox: {
-    borderColor: "#E57373",
+    borderColor: '#E57373',
   },
   timer: {
-    textAlign: "center",
-    color: "#E57373",
+    textAlign: 'center',
+    color: '#E57373',
     fontSize: 12,
     marginBottom: 20,
   },
   resend: {
-    textAlign: "center",
-    color: "#666",
+    textAlign: 'center',
+    color: '#666',
     fontSize: 14,
     marginBottom: 20,
   },
   resendAgain: {
-    color: "#F77A7F",
-    fontWeight: "400",
+    color: '#F77A7F',
+    fontWeight: '400',
   },
   continueButton: {
-    backgroundColor: "#E57373",
+    backgroundColor: '#E57373',
     paddingVertical: 14,
     borderRadius: 10,
-    alignItems: "center",
+    alignItems: 'center',
     marginTop: 150,
   },
   disabledButton: {
-    backgroundColor: "#F3C6C6",
+    backgroundColor: '#F3C6C6',
   },
   buttonText: {
-    color: "#FFFFFF",
+    color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   modalContent: {
-    backgroundColor: "white",
-    width: "224",
-    height: "224",
+    backgroundColor: 'white',
+    width: '224',
+    height: '224',
     padding: 20,
     borderRadius: 12,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   checkIcon: {
     width: 80,
@@ -233,12 +218,12 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontSize: 16,
-    color: "#333",
-    textAlign: "center",
+    color: '#333',
+    textAlign: 'center',
   },
   modalPhone: {
-    fontWeight: "bold",
-    color: "#333",
+    fontWeight: 'bold',
+    color: '#333',
   },
 });
 

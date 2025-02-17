@@ -1,5 +1,16 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  Alert,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import { useRouter } from 'expo-router';
 import InputField from '../components/InputField';
 import AuthButton from '../components/AuthButton';
@@ -47,85 +58,90 @@ const Login = () => {
     setTimeout(() => {
       setLoading(false);
       Alert.alert('Success', 'Successfully logged in!');
+      router.replace('/(tabs)/Home');
     }, 2000);
   };
 
   const isFormValid = email && password && isChecked && Object.keys(errors).length === 0;
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome Back</Text>
-      <Text style={styles.subtitle}>Login to your account</Text>
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.container}>
+            <Text style={styles.title}>Welcome Back</Text>
+            <Text style={styles.subtitle}>Login to your account</Text>
 
-      <InputField
-        label="Email/Phone Number"
-        value={email}
-        autoCapitalize="none"
-        onChangeText={(value) => {
-          setEmail(value);
-          validateInputs('email', value);
-        }}
-        error={errors.email}
-        keyboardType="email-address"
-      />
+            <InputField
+              label="Email/Phone Number"
+              value={email}
+              autoCapitalize="none"
+              onChangeText={(value) => {
+                setEmail(value);
+                validateInputs('email', value);
+              }}
+              error={errors.email}
+              keyboardType="email-address"
+            />
 
-      <InputField
-        label="Password"
-        value={password}
-        onChangeText={(value) => {
-          setPassword(value);
-          validateInputs('password', value);
-        }}
-        error={errors.password}
-        secureTextEntry
-        showToggle
-      />
+            <InputField
+              label="Password"
+              value={password}
+              onChangeText={(value) => {
+                setPassword(value);
+                validateInputs('password', value);
+              }}
+              error={errors.password}
+              secureTextEntry
+              showToggle
+            />
 
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Checkbox
-          label={
-            <>
-              <Text style={styles.rememberMeText}>Remember me</Text>
-            </>
-          }
-          checked={isChecked}
-          onToggle={() => {
-            setIsChecked(!isChecked);
-            validateInputs('checkbox', !isChecked);
-          }}
-          error={errors.checkbox}
-        />
-        <Text style={styles.footerText}>Forgot Password?</Text>
-      </View>
+            <View style={styles.rememberMeContainer}>
+              <Checkbox
+                label={<Text style={styles.rememberMeText}>Remember me</Text>}
+                checked={isChecked}
+                onToggle={() => {
+                  setIsChecked(!isChecked);
+                  validateInputs('checkbox', !isChecked);
+                }}
+                error={errors.checkbox}
+              />
+              <Text style={styles.forgotText}>Forgot Password?</Text>
+            </View>
 
-      {loading ? (
-        <ActivityIndicator size="large" color="#E57373" style={styles.loader} />
-      ) : (
-        <AuthButton title="Login" onPress={handleLogin} disabled={!isFormValid} />
-      )}
+            {loading ? (
+              <ActivityIndicator size="large" color="#E57373" style={styles.loader} />
+            ) : (
+              <AuthButton title="Login" onPress={handleLogin} disabled={!isFormValid} />
+            )}
 
-      <Text style={styles.orText}>OR</Text>
+            <Text style={styles.orText}>OR</Text>
 
-      <AuthButton title="Continue With Google" variant="outline" icon={require('../../assets/images/google.webp')} />
-      <AuthButton title="Continue With Apple" variant="outline" icon={require('../../assets/images/apple.png')} />
+            <AuthButton
+              title="Continue With Google"
+              variant="outline"
+              icon={require('../../assets/images/google.webp')}
+            />
+            <AuthButton title="Continue With Apple" variant="outline" icon={require('../../assets/images/apple.png')} />
 
-      <Text style={styles.footerText}>
-        Don't have an account?{' '}
-        <Text style={styles.sighnUpLink} onPress={() => router.replace('/screens/SignUp')}>
-          Sign Up
-        </Text>
-      </Text>
-    </View>
+            <Text style={styles.footerText}>
+              Don't have an account?{' '}
+              <Text style={styles.sighnUpLink} onPress={() => router.replace('/screens/SignUp')}>
+                Sign Up
+              </Text>
+            </Text>
+          </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     padding: 20,
@@ -145,13 +161,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 4,
   },
-  orText: {
-    textAlign: 'center',
-    fontWeight: '400',
-    color: '#000000',
-    fontSize: 12,
-    marginVertical: 10,
-    marginBottom: 20,
+  rememberMeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   rememberMeText: {
     color: '#E05E63',
@@ -162,6 +175,14 @@ const styles = StyleSheet.create({
     color: '#434343',
     fontWeight: '500',
     fontSize: 12,
+  },
+  orText: {
+    textAlign: 'center',
+    fontWeight: '400',
+    color: '#000000',
+    fontSize: 12,
+    marginVertical: 10,
+    marginBottom: 20,
   },
   footerText: {
     textAlign: 'center',
