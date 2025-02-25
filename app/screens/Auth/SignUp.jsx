@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import InputField from '../components/InputField';
-import AuthButton from '../components/AuthButton';
-import Checkbox from '../components/Checkbox';
+import InputField from '../../components/InputField';
+import AuthButton from '../../components/AuthButton';
+import Checkbox from '../../components/Checkbox';
 
 const SignUp = () => {
   const router = useRouter();
@@ -57,7 +57,7 @@ const SignUp = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      router.replace('/screens/AccountVerification');
+      router.replace('/screens/Auth/AccountVerification');
     }, 2000);
   };
 
@@ -126,12 +126,12 @@ const SignUp = () => {
 
       <Text style={styles.orText}>OR</Text>
 
-      <AuthButton title="Sign Up With Google" variant="outline" icon={require('../../assets/images/google.webp')} />
-      <AuthButton title="Sign Up With Apple" variant="outline" icon={require('../../assets/images/apple.png')} />
+      <AuthButton title="Sign Up With Google" variant="outline" icon={require('../../../assets/images/google.webp')} />
+      <AuthButton title="Sign Up With Apple" variant="outline" icon={require('../../../assets/images/apple.png')} />
 
       <Text style={styles.footerText}>
         Already have an account?{' '}
-        <Text style={styles.loginLink} onPress={() => router.replace('/screens/Login')}>
+        <Text style={styles.loginLink} onPress={() => router.push('/screens/Auth/Login')}>
           Login
         </Text>
       </Text>

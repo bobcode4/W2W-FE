@@ -10,11 +10,12 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  TextInput,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import InputField from '../components/InputField';
-import AuthButton from '../components/AuthButton';
-import Checkbox from '../components/Checkbox';
+import InputField from '../../components/InputField';
+import AuthButton from '../../components/AuthButton';
+import Checkbox from '../../components/Checkbox';
 
 const Login = () => {
   const router = useRouter();
@@ -62,7 +63,7 @@ const Login = () => {
     }, 2000);
   };
 
-  const isFormValid = email && password && isChecked && Object.keys(errors).length === 0;
+  const isFormValid = email && password && Object.keys(errors).length === 0;
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
@@ -83,6 +84,19 @@ const Login = () => {
               error={errors.email}
               keyboardType="email-address"
             />
+
+            {/* <TextInput
+              label="Password"
+              style={styles.phoneInput}
+              placeholder="Enter your phone number"
+              value={password}
+              error={errors.password}
+              onChangeText={(value) => {
+                setPassword(value);
+                validateInputs('password', value);
+              }}
+              secureTextEntry
+            /> */}
 
             <InputField
               label="Password"
@@ -120,13 +134,17 @@ const Login = () => {
             <AuthButton
               title="Continue With Google"
               variant="outline"
-              icon={require('../../assets/images/google.webp')}
+              icon={require('../../../assets/images/google.webp')}
             />
-            <AuthButton title="Continue With Apple" variant="outline" icon={require('../../assets/images/apple.png')} />
+            <AuthButton
+              title="Continue With Apple"
+              variant="outline"
+              icon={require('../../../assets/images/apple.png')}
+            />
 
             <Text style={styles.footerText}>
               Don't have an account?{' '}
-              <Text style={styles.sighnUpLink} onPress={() => router.replace('/screens/SignUp')}>
+              <Text style={styles.sighnUpLink} onPress={() => router.push('/screens/Auth/SignUp')}>
                 Sign Up
               </Text>
             </Text>
@@ -164,7 +182,6 @@ const styles = StyleSheet.create({
   rememberMeContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
   },
   rememberMeText: {
     color: '#E05E63',

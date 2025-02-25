@@ -2,7 +2,16 @@ import { View, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-nativ
 import { MaterialIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 
-const InputField = ({ label, value, onChangeText, error, secureTextEntry, keyboardType, showToggle }) => {
+const InputField = ({
+  label,
+  value,
+  onChangeText,
+  error,
+  secureTextEntry,
+  autoCapitalize,
+  keyboardType,
+  showToggle,
+}) => {
   const [hidden, setHidden] = useState(secureTextEntry);
 
   return (
@@ -13,6 +22,7 @@ const InputField = ({ label, value, onChangeText, error, secureTextEntry, keyboa
           style={styles.input}
           value={value}
           onChangeText={onChangeText}
+          autoCapitalize={autoCapitalize}
           secureTextEntry={hidden}
           keyboardType={keyboardType}
         />

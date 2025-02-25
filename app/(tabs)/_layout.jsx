@@ -1,91 +1,81 @@
 import { Tabs } from 'expo-router';
-import { Image, View, Text } from 'react-native';
+import { Image, View, Text, StyleSheet } from 'react-native';
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
         tabBarShowLabel: true,
-        tabBarStyle: {
-          height: 80,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-          position: 'absolute',
-          elevation: 5,
-          backgroundColor: '#fff',
-        },
-        tabBarLabelStyle: {
-          fontSize: 2,
-          fontWeight: '400',
-        },
+        tabBarStyle: styles.tabBar,
+        tabBarLabelStyle: styles.tabBarLabel,
       }}
     >
+      {/* Home Tab */}
       <Tabs.Screen
         name="Home"
         options={{
           title: 'Home',
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <>
+            <View style={styles.iconContainer}>
               {focused && <View style={styles.activeBar} />}
               <Image
                 source={
                   focused ? require('../../assets/icons/home-active.png') : require('../../assets/icons/home.png')
                 }
-                style={{ width: 24, height: 24 }}
+                style={styles.icon}
                 resizeMode="contain"
               />
-            </>
+            </View>
           ),
-          tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? '#E05E63' : '#A0A0A0', fontSize: 10 }}>Home</Text>
-          ),
+          tabBarLabel: ({ focused }) => <Text style={[styles.label, focused && styles.activeLabel]}>Home</Text>,
         }}
       />
+
+      {/* Categories Tab */}
       <Tabs.Screen
-        name="Categories"
+        name="Categories/Categories"
         options={{
           title: 'Categories',
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <>
+            <View style={styles.iconContainer}>
               {focused && <View style={styles.activeBar} />}
-              <Image
-                source={require('../../assets/icons/categories.png')}
-                style={{ width: 24, height: 24 }}
-                resizeMode="contain"
-              />
-            </>
+              <Image source={require('../../assets/icons/categories.png')} style={styles.icon} resizeMode="contain" />
+            </View>
           ),
-          tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? '#E05E63' : '#A0A0A0', fontSize: 10 }}>Categories</Text>
-          ),
+          tabBarLabel: ({ focused }) => <Text style={[styles.label, focused && styles.activeLabel]}>Categories</Text>,
         }}
       />
+
+      {/* Bag Tab */}
       <Tabs.Screen
-        name="Bag"
+        name="Bag/Bag"
         options={{
           title: 'Bag',
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <>
+            <View style={styles.iconContainer}>
               {focused && <View style={styles.activeBar} />}
               <Image
                 source={focused ? require('../../assets/icons/bag-active.png') : require('../../assets/icons/bag.png')}
-                style={{ width: 24, height: 24 }}
+                style={styles.icon}
                 resizeMode="contain"
               />
-            </>
+            </View>
           ),
-          tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? '#E05E63' : '#A0A0A0', fontSize: 10 }}>Bag</Text>
-          ),
+          tabBarLabel: ({ focused }) => <Text style={[styles.label, focused && styles.activeLabel]}>Bag</Text>,
         }}
       />
+
+      {/* Wishlist Tab */}
       <Tabs.Screen
-        name="Wishlist"
+        name="Wishlist/Wishlist"
         options={{
           title: 'Wishlist',
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <>
+            <View style={styles.iconContainer}>
               {focused && <View style={styles.activeBar} />}
               <Image
                 source={
@@ -93,42 +83,56 @@ export default function TabLayout() {
                     ? require('../../assets/icons/wishlist-active.png')
                     : require('../../assets/icons/wishlist.png')
                 }
-                style={{ width: 24, height: 24 }}
+                style={styles.icon}
                 resizeMode="contain"
               />
-            </>
+            </View>
           ),
-          tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? '#E05E63' : '#A0A0A0', fontSize: 10 }}>Wishlist</Text>
-          ),
+          tabBarLabel: ({ focused }) => <Text style={[styles.label, focused && styles.activeLabel]}>Wishlist</Text>,
         }}
       />
+
+      {/* Account Tab */}
       <Tabs.Screen
-        name="Account"
+        name="Account/Account"
         options={{
           title: 'Account',
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <>
+            <View style={styles.iconContainer}>
               {focused && <View style={styles.activeBar} />}
               <Image
                 source={
                   focused ? require('../../assets/icons/account-active.png') : require('../../assets/icons/account.png')
                 }
-                style={{ width: 24, height: 24 }}
+                style={styles.icon}
                 resizeMode="contain"
               />
-            </>
+            </View>
           ),
-          tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? '#E05E63' : '#A0A0A0', fontSize: 10 }}>Account</Text>
-          ),
+          tabBarLabel: ({ focused }) => <Text style={[styles.label, focused && styles.activeLabel]}>Account</Text>,
         }}
       />
     </Tabs>
   );
 }
 
-const styles = {
+const styles = StyleSheet.create({
+  tabBar: {
+    height: 80,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    position: 'absolute',
+    elevation: 5,
+    backgroundColor: '#fff',
+  },
+  tabBarLabel: {
+    fontSize: 10,
+    fontWeight: '400',
+  },
+  iconContainer: {
+    alignItems: 'center',
+  },
   activeBar: {
     width: 48,
     height: 6,
@@ -137,4 +141,15 @@ const styles = {
     position: 'absolute',
     top: -10,
   },
-};
+  icon: {
+    width: 24,
+    height: 24,
+  },
+  label: {
+    color: '#A0A0A0',
+    fontSize: 10,
+  },
+  activeLabel: {
+    color: '#E05E63',
+  },
+});

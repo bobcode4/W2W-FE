@@ -106,7 +106,7 @@ const OTPVerification = () => {
       <Modal visible={modalVisible} transparent={true} animationType="fade">
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Image source={require('../../assets/images/checkmark.webp')} style={styles.checkIcon} />
+            <Image source={require('../../../assets/images/checkmark.webp')} style={styles.checkIcon} />
             <Text style={styles.modalText}>Code has been resent to</Text>
             <Text style={styles.modalPhone}>{phone}</Text>
           </View>

@@ -1,9 +1,14 @@
 import { View, Text, StyleSheet } from 'react-native';
+import Button from '../../components/Button';
+import { useRouter } from 'expo-router';
 
-const Home = () => {
+const Index = () => {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home Screen</Text>
+      {/* <Button title="Trending" onPress={() => router.push('/(tabs)/Home/Trending')} /> */}
     </View>
   );
 };
@@ -20,4 +25,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Index;
