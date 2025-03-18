@@ -1,11 +1,9 @@
 import { Stack } from 'expo-router';
 
-export default function Layout() {
+export default function CategoriesLayout() {
   return (
     <Stack initialRouteName="index" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" option={{ headerShown: false }} />
-      {/* <Stack.Screen name="tabs/home/trending" option={{ headerShown: false }} /> */}
     </Stack>
   );
 }

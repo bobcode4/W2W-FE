@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import InputField from '../components/InputField';
+import { useState } from 'react';
+import { ActivityIndicator, Alert, StyleSheet, Text, View } from 'react-native';
 import AuthButton from '../components/AuthButton';
 import Checkbox from '../components/Checkbox';
+import InputField from '../components/InputField';
 
 const Login = () => {
   const router = useRouter();
@@ -47,10 +47,11 @@ const Login = () => {
     setTimeout(() => {
       setLoading(false);
       Alert.alert('Success', 'Successfully logged in!');
+      router.replace('/screens/Home');
     }, 2000);
   };
 
-  const isFormValid = email && password && isChecked && Object.keys(errors).length === 0;
+  const isFormValid = email && password && Object.keys(errors).length === 0;
 
   return (
     <View style={styles.container}>
